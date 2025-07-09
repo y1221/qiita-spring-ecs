@@ -76,7 +76,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
       - name: Build and Push Docker Image to ECR
         run: |
-          docker build -t ${{ env.ECR_REPOSITORY }} .
+          docker build --target prod -t ${{ env.ECR_REPOSITORY }} .
           docker tag ${{ env.ECR_REPOSITORY }}:latest ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
           docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
       - name: Download Current Task Definition
